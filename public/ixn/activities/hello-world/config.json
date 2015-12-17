@@ -1,0 +1,56 @@
+{
+   "workflowApiVersion": "1.0",
+   "metaData": {
+       "icon": "images/jb-icon.jpg",
+       "iconSmall": "images/jb-icon.jpg",
+       "category": "messaging",
+	   "isConfigured":false
+   },
+   "type": "REST",
+   "lang": {
+       "en-US": {
+           "name": "HTTP Request Activity",
+           "description": "Executes an HTTP request"
+       }
+   },
+   "arguments": {
+       "execute": {
+           "inArguments": [{ "eventData":"{{Context.PublicationId}}"}],
+           "outArguments": [],
+           "url": "https://dsimmons-http-request.herokuapp.com/ixn/activities/hello-world/execute/",
+		   "verb": "POST",
+            "format": "json",
+            "timeout": 3000,
+            "useJwt": true
+       }
+   },
+   "configurationArguments": {
+       "applicationExtensionKey": "jbwizard-http-request-simmons.CODEAT",
+       "save": {
+           "url": "https://dsimmons-http-request.herokuapp.com/ixn/activities/hello-world/save/",
+		   "verb": "POST",
+			"body": "",
+            "format": "json",
+            "useJwt": false
+       },
+       "publish": {
+           "url": "https://dsimmons-http-request.herokuapp.com/ixn/activities/hello-world/publish/",
+		   "verb": "POST",
+			"body": "",
+            "format": "json",
+            "useJwt": false
+       },
+       "validate": {
+           "url": "https://dsimmons-http-request.herokuapp.com/ixn/activities/hello-world/validate/",
+		   "verb": "POST",
+			"body": "",
+            "format": "json",
+            "useJwt": false
+       }
+   },
+   "edit": {
+		"url": "https://dsimmons-http-request.herokuapp.com/ixn/activities/hello-world/",
+		"height": 400,
+		"width": 500
+	}
+}
