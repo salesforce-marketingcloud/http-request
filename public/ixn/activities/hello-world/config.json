@@ -19,6 +19,7 @@
            "outArguments": [],
            "url": "https://dsimmons-http-request.herokuapp.com/ixn/activities/hello-world/execute/",
 		   "verb": "POST",
+		   "body": "",
             "format": "json",
             "timeout": 3000,
             "useJwt": true
@@ -26,6 +27,7 @@
    },
    "configurationArguments": {
        "applicationExtensionKey": "jbwizard-http-request-simmons.CODEAT",
+       "customerKey": "9505a9ad-fab8-4742-90c2-1aa266bd0e3f",
        "save": {
            "url": "https://dsimmons-http-request.herokuapp.com/ixn/activities/hello-world/save/",
 		   "verb": "POST",
