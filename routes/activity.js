@@ -111,10 +111,10 @@ http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b29
 	console.log('token',req.session.token);
 	
 	var options = {
-		url: '{{url}}',
-	  	headers: {{headers}},
+		url: 'http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b295cca9337e1e96b00e0', //'{{url}}',
+	  	headers: {"Content-type":"application/json"}, //{{headers}},
 	  	//body: httppayload,
-	  	method:'{{method}}'
+	  	method:'GET' //'{{method}}'
 	};	
 	
 	request(options, function (error, response, body) {
