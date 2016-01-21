@@ -82,6 +82,21 @@ exports.save = function( req, res ) {
     res.send( 200, 'Save' );
 };
 
+function isEmptyObject(obj) {
+  return !Object.keys(obj).length;
+};
+
+function headersToJSON() {
+	var hdrs = decodeURIComponent(process.env.REQ_HEADERS).split(',');
+	var json = {};
+	for (var i=0;i<hdrs.length-1;i+=2) {
+		if (hdrs[i] != '' && hdrs[i+1] != '') {
+			json[ hdrs[i] ] = hdrs[i+1];
+		}
+	}
+	return isEmptyObject(json) ? '' : json;
+};
+
 /*
  * POST Handler for /execute/ route of Activity.
  */
@@ -111,10 +126,10 @@ http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b29
 	console.log('token',req.session.token);
 	
 	var options = {
-		url: 'http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b295cca9337e1e96b00e0', //'{{url}}',
-	  	headers: {"Content-type":"application/json"}, //{{headers}},
-	  	//body: httppayload,
-	  	method:'GET' //'{{method}}'
+		url: decodeURIComponent(process.env.REQ_URL),
+	  	headers: headersToJSON(),
+	  	body: decodeURIComponent(process.env.REQ_BODY),
+	  	method: decodeURIComponent(process.env.REQ_METHOD)
 	};	
 	
 	request(options, function (error, response, body) {
