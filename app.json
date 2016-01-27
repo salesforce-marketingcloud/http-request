@@ -8,6 +8,8 @@
   	"REQ_METHOD":null,
   	"REQ_URL":null,
   	"REQ_HEADERS":null,
-  	"REQ_BODY":null
+  	"REQ_BODY":null,
+  	"APP_NAME":null,
+  	"ACT_KEY":null
   }
 }

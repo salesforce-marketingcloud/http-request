@@ -23,8 +23,9 @@ var parseString = require('xml2js').parseString;
 // test for heroku pipelines http-activity-dev
 exports.logExecuteData = [];
 
-function logData( req ) {
+function logData( req, body ) {
     exports.logExecuteData.push({
+    	response_body: body,
         body: req.body,
         headers: req.headers,
         trailers: req.trailers,
@@ -133,6 +134,14 @@ http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b29
 	};	
 	
 	request(options, function (error, response, body) {
+		if (error) {
+			logData( req, error );
+			res.send( 500, error );
+		} else {
+			logData( req, body );
+			res.send( 200, body );
+		}
+		/*
 		console.log('ERROR: ' + error);
 		console.log('BODY: ' + body);
 		try {
@@ -141,6 +150,7 @@ http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b29
 		catch(err) {
 			res.send( 200, 'Execute' );
 		}
+		*/
 	});		
 	
 };

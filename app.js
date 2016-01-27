@@ -11,6 +11,8 @@ var activity    = require('./routes/activity');
 var trigger     = require('./routes/trigger');
 var config      = require('./config/default');
 
+var configjson  = require('./public/ixn/activities/hello-world/config.json');
+
 var app = express();
 
 // Register configs for the environments where the app functions
@@ -63,6 +65,7 @@ app.get('/', routes.index );
 app.post('/login', tokenFromJWT, routes.login );
 app.post('/logout', routes.logout );
 
+
 // Custom Hello World Activity Routes
 app.post('/ixn/activities/hello-world/save/', activity.save );
 app.post('/ixn/activities/hello-world/validate/', activity.validate );
@@ -72,6 +75,19 @@ app.post('/ixn/activities/hello-world/publish/', activity.publish );
 //app.post('/ixn/activities/hello-world/execute/', tokenFromJWT, activity.execute );
 app.post('/ixn/activities/hello-world/execute/', activity.execute );
 
+//replace template values with environment variables.
+app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
+	var search = new RegExp('{{APP_NAME}}', 'g');
+	var json = JSON.parse(JSON.stringify(configjson)); //clone it.
+	json.arguments.execute.url = configjson.arguments.execute.url.replace(search,process.env.APP_NAME);
+	json.configurationArguments.save.url = configjson.configurationArguments.save.url.replace(search,process.env.APP_NAME);
+	json.configurationArguments.publish.url = configjson.configurationArguments.publish.url.replace(search,process.env.APP_NAME);
+	json.configurationArguments.validate.url = configjson.configurationArguments.validate.url.replace(search,process.env.APP_NAME);
+	json.edit.url = configjson.configurationArguments.validate.url.replace(search,process.env.APP_NAME);
+	search = new RegExp('{{ACT_KEY}}', 'g');
+	json.configurationArguments.applicationExtensionKey = configjson.configurationArguments.applicationExtensionKey.replace(search,process.env.ACT_KEY);
+	res.status(200).send( json );
+});
 
 // Custom Hello World Trigger Route
 app.post('/ixn/triggers/hello-world/', trigger.edit );
