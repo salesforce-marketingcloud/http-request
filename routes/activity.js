@@ -163,7 +163,7 @@ exports.execute = function( req, res ) {
 							res.send( 500, error );
 						} else {
 							logData( req, body );
-							res.send( 200, body );
+							res.send( 200, {response_body: body, response_req: response.req} );
 						}
 					});				
 					/*
