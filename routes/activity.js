@@ -145,7 +145,7 @@ exports.execute = function( req, res ) {
 	var options = {
 		url: decodeURIComponent(process.env.REQ_URL),
 	  	headers: headersToJSON(),
-	  	body: decodeURIComponent(process.env.REQ_BODY),
+	  	//body: decodeURIComponent(process.env.REQ_BODY),
 	  	method: decodeURIComponent(process.env.REQ_METHOD)
 	};	
 	var IET_Client = new ET_Client(process.env.ACC_CLIENTID,process.env.ACC_SECRET,process.env.ACC_STACK); //stack needed for soap only
