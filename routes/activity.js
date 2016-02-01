@@ -143,12 +143,11 @@ exports.execute = function( req, res ) {
 				logData( req, err );
 				res.send( 500, err );					
 			} else {
-				options.uri = decodeURIComponent(process.env.REQ_URL);
-				options.method = options.method.toLowerCase();
+				//options.uri = decodeURIComponent(process.env.REQ_URL);
+				//options.method = options.method.toLowerCase();
 				if (mctype === 'rest') {
-					options.json = true;
 					options.headers.Authorization = 'Bearer ' + body.accessToken;
-					delete options.url;
+					//delete options.url;
 				} else {
 					/*
 					  <Header>
@@ -158,6 +157,16 @@ exports.execute = function( req, res ) {
 					options.body = options.body.replace('{{token}}',body.accessToken);
 				}
 				try {
+					request(options, function (error, response, body) {
+						if (error) {
+							logData( req, error );
+							res.send( 500, error );
+						} else {
+							logData( req, body );
+							res.send( 200, body );
+						}
+					});				
+					/*
 					IET_Client.RestClient[options.method](options, function(err, response) {
 						if (err) {
 							logData( req, err );
@@ -167,6 +176,7 @@ exports.execute = function( req, res ) {
 							res.send( response.res.statusCode, response.res );
 						}
 					});
+					*/
 				} catch(e) {
 					logData( req, e );
 					res.send( 500, e );				
