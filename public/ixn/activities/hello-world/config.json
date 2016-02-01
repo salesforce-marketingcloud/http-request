@@ -17,7 +17,7 @@
        "execute": {
            "inArguments": [{ "eventData":"{{Context.PublicationId}}"}],
            "outArguments": [],
-           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/execute/",
+           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/execute",
 		   "verb": "POST",
 		   "body": "",
             "format": "json",
@@ -28,21 +28,21 @@
    "configurationArguments": {
        "applicationExtensionKey": "{{ACT_KEY}}",
        "save": {
-           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/save/",
+           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/save",
 		   "verb": "POST",
 			"body": "",
             "format": "json",
             "useJwt": false
        },
        "publish": {
-           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/publish/",
+           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/publish",
 		   "verb": "POST",
 			"body": "",
             "format": "json",
             "useJwt": false
        },
        "validate": {
-           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/validate/",
+           "url": "https://{{APP_NAME}}.herokuapp.com/ixn/activities/hello-world/validate",
 		   "verb": "POST",
 			"body": "",
             "format": "json",

@@ -6,9 +6,9 @@ var util = require( 'util' );
 var parseString = require('xml2js').parseString;
 var underscore = require('underscore');
 var request = require('request');
-var FuelRest = require('fuel-rest');
 //var twilio = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
 var requestify = require('requestify');
+var ET_Client = require( 'fuelsdk-node' );
 
 var http = require('http');
 var ws = require('ws.js');
@@ -98,20 +98,23 @@ function headersToJSON() {
 	return isEmptyObject(json) ? '' : json;
 };
 
+function isMC_API(url) {
+	var res;
+	var u = url.toLowerCase();
+	if (u.indexOf('exacttargetapis') > -1) {
+		res = 'rest'
+	} else if (u.indexOf('exacttarget') > -1) {
+		res = 'soap'
+	}
+	return res;
+};
+
 /*
  * POST Handler for /execute/ route of Activity.
  */
 exports.execute = function( req, res ) {
-	
-/*
-url: 'https://www.exacttargetapis.com/hub/v1/campaigns?$page=1&$pageSize=10&$orderBy=ModifiedDate DESC',
-http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b295cca9337e1e96b00e0
-{"Content-type":"application/json"}
-
-
-*/
 	//console.log('body',util.inspect(req.body, {showHidden: false, depth: null}));
-	console.log('body',JSON.stringify(req.body));
+	//console.log('body',JSON.stringify(req.body));
 	
 	//merge the array of objects.
 	var aArgs = req.body.inArguments;
@@ -132,26 +135,45 @@ http://api.openweathermap.org/data/2.5/weather?zip=46360,us&appid=2de143494c0b29
 	  	body: decodeURIComponent(process.env.REQ_BODY),
 	  	method: decodeURIComponent(process.env.REQ_METHOD)
 	};	
+	var IET_Client = new ET_Client(process.env.ACC_CLIENTID,process.env.ACC_SECRET,process.env.ACC_STACK); //stack needed for soap only
+	var mctype = isMC_API(options.url);
+	if (mctype) {
+		IET_Client.FuelAuthClient.getAccessToken(IET_Client.FuelAuthClient, function(err, body) {	
+			if (err) {
+				logData( req, err );
+				res.send( 500, err );					
+			} else {
+				options.uri = decodeURIComponent(process.env.REQ_URL);
+				if (mctype === 'rest') {
+					options.json = true;
+					options.headers.Authorization = 'Bearer ' + body.accessToken;
+					delete options.url;
+				} else {
+					options.body = options.body.replace('{{token}}',body.accessToken);
+				}
+				IET_Client.RestClient.post(options, function(err, response) {
+					if (err) {
+						logData( req, err );
+						res.send( 500, err );							
+					} else {		
+						logData( req, response.res );
+						res.send( response.res.statusCode, response.res );
+					}
+				});										
+			}
+		});				
+	} else {
+		request(options, function (error, response, body) {
+			if (error) {
+				logData( req, error );
+				res.send( 500, error );
+			} else {
+				logData( req, body );
+				res.send( 200, body );
+			}
+		});			
+	}
 	
-	request(options, function (error, response, body) {
-		if (error) {
-			logData( req, error );
-			res.send( 500, error );
-		} else {
-			logData( req, body );
-			res.send( 200, body );
-		}
-		/*
-		console.log('ERROR: ' + error);
-		console.log('BODY: ' + body);
-		try {
-			res.send( 200, 'Execute' );
-		}
-		catch(err) {
-			res.send( 200, 'Execute' );
-		}
-		*/
-	});		
 	
 };
 

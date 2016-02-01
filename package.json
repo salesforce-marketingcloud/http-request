@@ -8,7 +8,7 @@
   "dependencies": {
     "express": "~3.5.0",
     "fuel": "~0.4.1",
-    "fuel-rest": "^1.0.0",
+    "fuelsdk-node": "^1.0.0",
     "iconv-lite": "^0.4.11",
     "jade": "*",
     "jwt-simple": "~0.1.0",

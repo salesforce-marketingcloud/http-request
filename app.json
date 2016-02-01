@@ -3,13 +3,14 @@
   "description": "Journey Builder Custom Activity for making an http request.",
   "repository": "https://github.com/timsim00/http-request",
   "keywords": ["journey", "builder", "marketing", "cloud", "custom", "activity", "salesforce"],
-  "success_url": "https://appcenter-auth.s1.marketingcloudapps.com/",
   "env": {
   	"REQ_METHOD":null,
   	"REQ_URL":null,
   	"REQ_HEADERS":null,
   	"REQ_BODY":null,
   	"APP_NAME":null,
-  	"ACT_KEY":null
+  	"ACT_KEY":null,
+  	"ACC_CLIENTID":null,
+  	"ACC_SECRET":null
   }
 }

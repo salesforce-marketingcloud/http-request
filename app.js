@@ -67,13 +67,13 @@ app.post('/logout', routes.logout );
 
 
 // Custom Hello World Activity Routes
-app.post('/ixn/activities/hello-world/save/', activity.save );
-app.post('/ixn/activities/hello-world/validate/', activity.validate );
-app.post('/ixn/activities/hello-world/publish/', activity.publish );
+app.post('/ixn/activities/hello-world/save', activity.save );
+app.post('/ixn/activities/hello-world/validate', activity.validate );
+app.post('/ixn/activities/hello-world/publish', activity.publish );
 
 //setup middleware for Marketing Cloud API calls:
 //app.post('/ixn/activities/hello-world/execute/', tokenFromJWT, activity.execute );
-app.post('/ixn/activities/hello-world/execute/', activity.execute );
+app.post('/ixn/activities/hello-world/execute', activity.execute );
 
 //replace template values with environment variables.
 app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
