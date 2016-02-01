@@ -168,6 +168,7 @@ exports.execute = function( req, res ) {
 					options.body = options.body.replace('{{token}}',body.accessToken);
 				}
 				if (!options.body) delete options.body;
+				request.debug = true;
 				try {
 					request(options, function (error, response, body) {
 						if (error) {
