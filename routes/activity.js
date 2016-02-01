@@ -117,13 +117,15 @@ exports.execute = function( req, res ) {
 	//console.log('body',JSON.stringify(req.body));
 	
 	//merge the array of objects.
-	var aArgs = req.body.inArguments;
+	var aArgs = (req.body && req.body.inArguments) ? req.body.inArguments || [];
 	var oArgs = {};
-	for (var i=0; i<aArgs.length; i++) {  
-		for (var key in aArgs[i]) { 
-			oArgs[key] = aArgs[i][key]; 
+	if (aArgs) {
+		for (var i=0; i<aArgs.length; i++) {  
+			for (var key in aArgs[i]) { 
+				oArgs[key] = aArgs[i][key]; 
+			}
 		}
-	}
+	}	
 
 	//console.log('oArgs',util.inspect(oArgs, {showHidden: false, depth: null}));
 	//console.log('oArgs',JSON.stringify(oArgs));
