@@ -184,6 +184,7 @@ exports.execute = function( req, res ) {
 							logData( req, error );
 							res.send( 500, error );
 						} else {
+							response.request_options = options;
 							logData( req, response );
 							res.send( 200, body );
 						}
