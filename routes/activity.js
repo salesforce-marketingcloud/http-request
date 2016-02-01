@@ -117,7 +117,7 @@ exports.execute = function( req, res ) {
 	//console.log('body',JSON.stringify(req.body));
 	
 	//merge the array of objects.
-	var aArgs = (req.body && req.body.inArguments) ? req.body.inArguments || [];
+	var aArgs = (req.body && req.body.inArguments) ? req.body.inArguments : [];
 	var oArgs = {};
 	if (aArgs) {
 		for (var i=0; i<aArgs.length; i++) {  
