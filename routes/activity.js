@@ -53,6 +53,7 @@ function logData( req, http_result ) {
 			originalUrl: req.originalUrl
 		}	
     });
+    /*
         console.log( "body: " + util.inspect( req.body ) );
         console.log( "headers: " + req.headers );
         console.log( "trailers: " + req.trailers );
@@ -70,6 +71,7 @@ function logData( req, http_result ) {
         console.log( "protocol: " + req.protocol );
         console.log( "secure: " + req.secure );
         console.log( "originalUrl: " + req.originalUrl );
+    */ 
 }
 
 
@@ -176,7 +178,8 @@ exports.execute = function( req, res ) {
 							res.send( 500, error );
 						} else {
 							//console.log('response:',response);
-							//response.request_options = options;
+							console.log('res.req',response.req);
+							response.request_options = options;
 							logData( req, response );
 							res.send( 200, body );
 						}
