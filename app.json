@@ -7,22 +7,18 @@
   	"REQ_METHOD":null,
   	"REQ_URL":null,
   	"REQ_HEADERS":{
-  		"value":null
-  		,"required":false
+  		"required":false
   	},
   	"REQ_BODY":{
-  		"value":null
-  		,"required":false
+  		"required":false
   	},
   	"APP_NAME":null,
   	"ACT_KEY":null,
   	"ACC_CLIENTID":{
-  		"value":null
-  		,"required":false
+  		"required":false
   	},
   	"ACC_SECRET":{
-  		"value":null
-  		,"required":false
+  		"required":false
   	}
   }
 }
