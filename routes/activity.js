@@ -95,7 +95,7 @@ function headersToJSON() {
 			json[ hdrs[i] ] = hdrs[i+1];
 		}
 	}
-	return isEmptyObject(json) ? '' : json;
+	return isEmptyObject(json) ? {} : json;
 };
 
 function isMC_API(url) {
