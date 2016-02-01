@@ -167,14 +167,15 @@ exports.execute = function( req, res ) {
 					*/
 					options.body = options.body.replace('{{token}}',body.accessToken);
 				}
+				if (!options.body) delete options.body;
 				try {
 					request(options, function (error, response, body) {
 						if (error) {
 							logData( req, error );
 							res.send( 500, error );
 						} else {
-							console.log('response:',response);
-							response.request_options = options;
+							//console.log('response:',response);
+							//response.request_options = options;
 							logData( req, response );
 							res.send( 200, body );
 						}
