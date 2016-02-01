@@ -23,26 +23,46 @@ var parseString = require('xml2js').parseString;
 // test for heroku pipelines http-activity-dev
 exports.logExecuteData = [];
 
-function logData( req, body ) {
+function logData( req, http_result ) {
     exports.logExecuteData.push({
-    	response_body: body,
-        body: req.body,
-        headers: req.headers,
-        trailers: req.trailers,
-        method: req.method,
-        url: req.url,
-        params: req.params,
-        query: req.query,
-        route: req.route,
-        cookies: req.cookies,
-        ip: req.ip,
-        path: req.path,
-        host: req.host,
-        fresh: req.fresh,
-        stale: req.stale,
-        protocol: req.protocol,
-        secure: req.secure,
-        originalUrl: req.originalUrl
+    	http_result: {
+			body: http_result.body,
+			headers: http_result.headers,
+			trailers: http_result.trailers,
+			method: http_result.method,
+			url: http_result.url,
+			params: http_result.params,
+			query: http_result.query,
+			route: http_result.route,
+			cookies: http_result.cookies,
+			ip: http_result.ip,
+			path: http_result.path,
+			host: http_result.host,
+			fresh: http_result.fresh,
+			stale: http_result.stale,
+			protocol: http_result.protocol,
+			secure: http_result.secure,
+			originalUrl: http_result.originalUrl    	
+    	},
+    	activity: {
+			body: req.body,
+			headers: req.headers,
+			trailers: req.trailers,
+			method: req.method,
+			url: req.url,
+			params: req.params,
+			query: req.query,
+			route: req.route,
+			cookies: req.cookies,
+			ip: req.ip,
+			path: req.path,
+			host: req.host,
+			fresh: req.fresh,
+			stale: req.stale,
+			protocol: req.protocol,
+			secure: req.secure,
+			originalUrl: req.originalUrl
+		}	
     });
         console.log( "body: " + util.inspect( req.body ) );
         console.log( "headers: " + req.headers );
@@ -164,8 +184,8 @@ exports.execute = function( req, res ) {
 							logData( req, error );
 							res.send( 500, error );
 						} else {
-							logData( req, body );
-							res.send( 200, {response_body: body, response_req: response.req} );
+							logData( req, response );
+							res.send( 200, body );
 						}
 					});				
 					/*
