@@ -127,7 +127,7 @@ exports.execute = function( req, res ) {
 
 	//console.log('oArgs',util.inspect(oArgs, {showHidden: false, depth: null}));
 	//console.log('oArgs',JSON.stringify(oArgs));
-	console.log('token',req.session.token);
+	//console.log('token',req.session.token);
 	
 	var options = {
 		url: decodeURIComponent(process.env.REQ_URL),
@@ -144,22 +144,33 @@ exports.execute = function( req, res ) {
 				res.send( 500, err );					
 			} else {
 				options.uri = decodeURIComponent(process.env.REQ_URL);
+				options.method = options.method.toLowerCase();
 				if (mctype === 'rest') {
 					options.json = true;
 					options.headers.Authorization = 'Bearer ' + body.accessToken;
 					delete options.url;
 				} else {
+					/*
+					  <Header>
+						<fueloauth xmlns="http://exacttarget.com">{{token}}</fueloauth>
+					  </Header>					
+					*/
 					options.body = options.body.replace('{{token}}',body.accessToken);
 				}
-				IET_Client.RestClient.post(options, function(err, response) {
-					if (err) {
-						logData( req, err );
-						res.send( 500, err );							
-					} else {		
-						logData( req, response.res );
-						res.send( response.res.statusCode, response.res );
-					}
-				});										
+				try {
+					IET_Client.RestClient[options.method](options, function(err, response) {
+						if (err) {
+							logData( req, err );
+							res.send( 500, err );							
+						} else {		
+							logData( req, response.res );
+							res.send( response.res.statusCode, response.res );
+						}
+					});
+				} catch(e) {
+					logData( req, e );
+					res.send( 500, e );				
+				}										
 			}
 		});				
 	} else {

@@ -6,11 +6,23 @@
   "env": {
   	"REQ_METHOD":null,
   	"REQ_URL":null,
-  	"REQ_HEADERS":null,
-  	"REQ_BODY":null,
+  	"REQ_HEADERS":{
+  		"value":null
+  		,"required":false
+  	},
+  	"REQ_BODY":{
+  		"value":null
+  		,"required":false
+  	},
   	"APP_NAME":null,
   	"ACT_KEY":null,
-  	"ACC_CLIENTID":null,
-  	"ACC_SECRET":null
+  	"ACC_CLIENTID":{
+  		"value":null
+  		,"required":false
+  	},
+  	"ACC_SECRET":{
+  		"value":null
+  		,"required":false
+  	}
   }
 }
