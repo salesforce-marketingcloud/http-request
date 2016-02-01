@@ -31,18 +31,7 @@ function logData( req, http_result ) {
 			trailers: http_result.trailers,
 			method: http_result.method,
 			url: http_result.url,
-			params: http_result.params,
-			query: http_result.query,
-			route: http_result.route,
-			cookies: http_result.cookies,
-			ip: http_result.ip,
-			path: http_result.path,
-			host: http_result.host,
-			fresh: http_result.fresh,
-			stale: http_result.stale,
-			protocol: http_result.protocol,
-			secure: http_result.secure,
-			originalUrl: http_result.originalUrl    	
+			request_options: http_result.request_options   	
     	},
     	activity: {
 			body: req.body,
@@ -184,6 +173,7 @@ exports.execute = function( req, res ) {
 							logData( req, error );
 							res.send( 500, error );
 						} else {
+							console.log('response:',response);
 							response.request_options = options;
 							logData( req, response );
 							res.send( 200, body );
