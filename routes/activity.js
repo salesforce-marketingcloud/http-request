@@ -29,10 +29,11 @@ function logData( req, http_result ) {
 			headers: http_result.headers,
 			trailers: http_result.trailers,
 			method: http_result.method,
-			url: http_result.url,
+			url: http_result.url,			
 			request_options: http_result.request_options   	
     	},
     	activity: {
+    		inArgs: req.inArgs,
 			body: req.body,
 			headers: req.headers,
 			trailers: req.trailers,
@@ -126,6 +127,16 @@ exports.execute = function( req, res ) {
 	//console.log('body',util.inspect(req.body, {showHidden: false, depth: null}));
 	//console.log('body',JSON.stringify(req.body));
 	
+	/*
+	tests:
+	non-MC
+	http://api.openweathermap.org/data/2.5/weather?zip=10001,us&appid=2de143494c0b295cca9337e1e96b00e0	
+	MC-rest
+	https://www.exacttargetapis.com/platform/v1/tokenContext
+	MC-soap
+	https://webservice.s7.exacttarget.com:443/Service.asmx
+	*/
+	
 	//merge the array of objects.
 	var aArgs = (req.body && req.body.inArguments) ? req.body.inArguments : [];
 	var oArgs = {};
@@ -173,6 +184,7 @@ exports.execute = function( req, res ) {
 							logData( req, error );
 							res.send( 500, error );
 						} else {
+							req.inArgs = oArgs;
 							logData( req, response );
 							res.send( 200, body );
 						}
@@ -189,6 +201,7 @@ exports.execute = function( req, res ) {
 				logData( req, error );
 				res.send( 500, error );
 			} else {
+				req.inArgs = oArgs;
 				logData( req, response );			
 				res.send( 200, body );
 			}
