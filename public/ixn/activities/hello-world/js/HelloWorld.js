@@ -26,20 +26,7 @@ define( function( require ) {
 	
 	connection.on('initActivity', function(payload) {
         if (payload) {
-            inArgPayload = payload;
-			if(inArgPayload['arguments'].execute.inArguments.length > 1) {
-				if(inArgPayload['arguments'].execute.inArguments[1].hasOwnProperty("url")) {
-					$('#url').val(inArgPayload['arguments'].execute.inArguments[1].url);
-				}
-				if(inArgPayload['arguments'].execute.inArguments[2].hasOwnProperty("headers")) {
-					$('#headers').val(inArgPayload['arguments'].execute.inArguments[2].headers);
-				}
-				if(inArgPayload['arguments'].execute.inArguments[3].hasOwnProperty("httppayload")) {
-					$('#httppayload').val(inArgPayload['arguments'].execute.inArguments[3].httppayload);
-				}
-			}
-            console.log('payload',JSON.stringify(payload));
-			
+            console.log('payload',JSON.stringify(payload));			
         }
         
     });
@@ -95,31 +82,8 @@ define( function( require ) {
     });
 	
 	connection.on('clickedNext', function() {
-		if(inArgPayload['arguments'].execute.inArguments.length > 1) {
-			if(inArgPayload['arguments'].execute.inArguments[1].hasOwnProperty("url")) {
-				inArgPayload['arguments'].execute.inArguments[1].url = $('#url').val().trim();
-			}
-			if(inArgPayload['arguments'].execute.inArguments[2].hasOwnProperty("headers")) {
-				inArgPayload['arguments'].execute.inArguments[2].headers = $('#headers').val();
-			}
-			if(inArgPayload['arguments'].execute.inArguments[3].hasOwnProperty("httppayload")) {
-				inArgPayload['arguments'].execute.inArguments[3].httppayload = $('#httppayload').val();
-			}
-		}
-		else {
-			inArgPayload['arguments'].execute.inArguments.push({"url": $('#url').val().trim()});
-			inArgPayload['arguments'].execute.inArguments.push({"headers": $('#headers').val()});
-			inArgPayload['arguments'].execute.inArguments.push({"httppayload": $('#httppayload').val()});
-		}
 		inArgPayload.metaData.isConfigured = true;
         connection.trigger('updateActivity',inArgPayload);
     });
 
-	// Trigger this method when updating a step. This allows JB to
-	// update the wizard.
-    //connection.trigger('updateStep', nextStep);
-
-	// When everything has been configured for this activity, trigger
-	// the save:
-	// connection.trigger('save', 
 });
