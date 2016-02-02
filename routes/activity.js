@@ -142,12 +142,13 @@ exports.execute = function( req, res ) {
 	//console.log('oArgs',JSON.stringify(oArgs));
 	//console.log('token',req.session.token);
 	
+	var body = decodeURIComponent(process.env.REQ_BODY);
 	var options = {
 		url: decodeURIComponent(process.env.REQ_URL),
 	  	headers: headersToJSON(),
-	  	//body: decodeURIComponent(process.env.REQ_BODY),
 	  	method: decodeURIComponent(process.env.REQ_METHOD)
 	};	
+	if (body && (body !== 'undefined') && (body.trim() !== '')) options.body = body;
 	var IET_Client = new ET_Client(process.env.ACC_CLIENTID,process.env.ACC_SECRET,process.env.ACC_STACK); //stack needed for soap only
 	var mctype = isMC_API(options.url);
 	if (mctype) {
@@ -156,45 +157,27 @@ exports.execute = function( req, res ) {
 				logData( req, err );
 				res.send( 500, err );					
 			} else {
-				//options.uri = decodeURIComponent(process.env.REQ_URL);
-				//options.method = options.method.toLowerCase();
 				if (mctype === 'rest') {
 					options.headers.Authorization = 'Bearer ' + body.accessToken;
-					//delete options.url;
 				} else {
 					/*
 					  <Header>
 						<fueloauth xmlns="http://exacttarget.com">{{token}}</fueloauth>
 					  </Header>					
 					*/
-					options.body = options.body.replace('{{token}}',body.accessToken);
+					if (options.body) options.body = options.body.replace('{{token}}',body.accessToken);
 				}
-				if (!options.body) delete options.body;
-				request.debug = true;
+				//request.debug = true;
 				try {
 					request(options, function (error, response, body) {
 						if (error) {
 							logData( req, error );
 							res.send( 500, error );
 						} else {
-							//console.log('response:',response);
-							console.log('res.req',response.req);
-							response.request_options = options;
 							logData( req, response );
 							res.send( 200, body );
 						}
 					});				
-					/*
-					IET_Client.RestClient[options.method](options, function(err, response) {
-						if (err) {
-							logData( req, err );
-							res.send( 500, err );							
-						} else {		
-							logData( req, response.res );
-							res.send( response.res.statusCode, response.res );
-						}
-					});
-					*/
 				} catch(e) {
 					logData( req, e );
 					res.send( 500, e );				
@@ -207,7 +190,7 @@ exports.execute = function( req, res ) {
 				logData( req, error );
 				res.send( 500, error );
 			} else {
-				logData( req, body );
+				logData( req, response );			
 				res.send( 200, body );
 			}
 		});			

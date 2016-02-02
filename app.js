@@ -69,6 +69,7 @@ app.post('/logout', routes.logout );
 // Custom Hello World Activity Routes
 app.post('/ixn/activities/hello-world/save', activity.save );
 app.post('/ixn/activities/hello-world/validate', activity.validate );
+app.get('/ixn/activities/hello-world/validate', activity.validate );
 app.post('/ixn/activities/hello-world/publish', activity.publish );
 
 //setup middleware for Marketing Cloud API calls:
