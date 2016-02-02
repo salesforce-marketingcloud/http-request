@@ -1,5 +1,4 @@
 'use strict';
-var util = require( 'util' );
 
 // Deps
 var util = require( 'util' );

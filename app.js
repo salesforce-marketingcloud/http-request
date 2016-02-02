@@ -69,7 +69,6 @@ app.post('/logout', routes.logout );
 // Custom Hello World Activity Routes
 app.post('/ixn/activities/hello-world/save', activity.save );
 app.post('/ixn/activities/hello-world/validate', activity.validate );
-app.get('/ixn/activities/hello-world/validate', activity.validate );
 app.post('/ixn/activities/hello-world/publish', activity.publish );
 
 //setup middleware for Marketing Cloud API calls:
@@ -84,7 +83,7 @@ app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
 	json.configurationArguments.save.url = configjson.configurationArguments.save.url.replace(search,process.env.APP_NAME);
 	json.configurationArguments.publish.url = configjson.configurationArguments.publish.url.replace(search,process.env.APP_NAME);
 	json.configurationArguments.validate.url = configjson.configurationArguments.validate.url.replace(search,process.env.APP_NAME);
-	json.edit.url = configjson.configurationArguments.validate.url.replace(search,process.env.APP_NAME);
+	json.edit.url = configjson.edit.url.replace(search,process.env.APP_NAME);
 	search = new RegExp('{{ACT_KEY}}', 'g');
 	json.configurationArguments.applicationExtensionKey = configjson.configurationArguments.applicationExtensionKey.replace(search,process.env.ACT_KEY);
 	res.status(200).send( json );
