@@ -26,6 +26,7 @@ define( function( require ) {
 	
 	connection.on('initActivity', function(payload) {
         if (payload) {
+        	inArgPayload = payload;
             console.log('payload',JSON.stringify(payload));			
         }
         
