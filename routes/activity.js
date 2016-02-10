@@ -33,7 +33,6 @@ function logData( req, http_result ) {
 			request_options: http_result.request_options   	
     	},
     	activity: {
-    		inArgs: req.inArgs,
 			body: req.body,
 			headers: req.headers,
 			trailers: req.trailers,
@@ -130,11 +129,31 @@ exports.execute = function( req, res ) {
 	/*
 	tests:
 	non-MC
-	http://api.openweathermap.org/data/2.5/weather?zip=10001,us&appid=2de143494c0b295cca9337e1e96b00e0	
+		http://api.openweathermap.org/data/2.5/weather?zip=10001,us&appid=2de143494c0b295cca9337e1e96b00e0	
 	MC-rest
-	https://www.exacttargetapis.com/platform/v1/tokenContext
+		https://www.exacttargetapis.com/platform/v1/tokenContext
 	MC-soap
-	https://webservice.s7.exacttarget.com:443/Service.asmx
+		https://webservice.s7.exacttarget.com:443/Service.asmx
+	soap body:
+		<?xml version="1.0"?>
+		<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://exacttarget.com/wsdl/partnerAPI">
+		<soap:Header>
+			<fueloauth xmlns="http://exacttarget.com">{{token}}</fueloauth>
+		</soap:Header>
+		<soap:Body>
+			<RetrieveRequestMsg xmlns="http://exacttarget.com/wsdl/partnerAPI">
+			  <RetrieveRequest>
+				<ObjectType>AccountUser</ObjectType>
+				<Properties>Name</Properties>
+				<Properties>UserID</Properties>
+				<!--<Properties>AssociatedBusinessUnits</Properties>-->
+			  </RetrieveRequest>
+			</RetrieveRequestMsg>
+		</soap:Body>
+		</soap:Envelope>	
+	soap headers:
+		Content-Type: text/xml
+		SOAPAction: Retrieve
 	*/
 	
 	//merge the array of objects.
@@ -159,7 +178,7 @@ exports.execute = function( req, res ) {
 	  	method: decodeURIComponent(process.env.REQ_METHOD)
 	};	
 	if (body && (body !== 'undefined') && (body.trim() !== '')) options.body = body;
-	var IET_Client = new ET_Client(process.env.ACC_CLIENTID,process.env.ACC_SECRET,process.env.ACC_STACK); //stack needed for soap only
+	var IET_Client = new ET_Client(process.env.ACCOUNT_CLIENTID,process.env.ACCOUNT_SECRET);
 	var mctype = isMC_API(options.url);
 	if (mctype) {
 		IET_Client.FuelAuthClient.getAccessToken(IET_Client.FuelAuthClient, function(err, body) {	
@@ -184,7 +203,6 @@ exports.execute = function( req, res ) {
 							logData( req, error );
 							res.send( 500, error );
 						} else {
-							req.inArgs = oArgs;
 							logData( req, response );
 							res.send( 200, body );
 						}
@@ -201,7 +219,6 @@ exports.execute = function( req, res ) {
 				logData( req, error );
 				res.send( 500, error );
 			} else {
-				req.inArgs = oArgs;
 				logData( req, response );			
 				res.send( 200, body );
 			}
