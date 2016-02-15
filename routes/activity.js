@@ -98,7 +98,7 @@ function isEmptyObject(obj) {
 };
 
 function headersToJSON() {
-	var hdrs = decodeURIComponent(process.env.REQ_HEADERS).split(',');
+	var hdrs = decodeURIComponent(process.env.REQUEST_HEADERS).split(',');
 	var json = {};
 	for (var i=0;i<hdrs.length-1;i+=2) {
 		if (hdrs[i] != '' && hdrs[i+1] != '') {
@@ -171,14 +171,14 @@ exports.execute = function( req, res ) {
 	//console.log('oArgs',JSON.stringify(oArgs));
 	//console.log('token',req.session.token);
 	
-	var body = decodeURIComponent(process.env.REQ_BODY);
+	var body = decodeURIComponent(process.env.REQUEST_BODY);
 	var options = {
-		url: decodeURIComponent(process.env.REQ_URL),
+		url: decodeURIComponent(process.env.REQUEST_URL),
 	  	headers: headersToJSON(),
-	  	method: decodeURIComponent(process.env.REQ_METHOD)
+	  	method: decodeURIComponent(process.env.REQUEST_METHOD)
 	};	
 	if (body && (body !== 'undefined') && (body.trim() !== '')) options.body = body;
-	var IET_Client = new ET_Client(process.env.ACCOUNT_CLIENTID,process.env.ACCOUNT_SECRET);
+	var IET_Client = new ET_Client(process.env.CLIENT_ID,process.env.CLIENT_SECRET);
 	var mctype = isMC_API(options.url);
 	if (mctype) {
 		IET_Client.FuelAuthClient.getAccessToken(IET_Client.FuelAuthClient, function(err, body) {	

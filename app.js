@@ -77,15 +77,17 @@ app.post('/ixn/activities/hello-world/execute', activity.execute );
 
 //replace template values with environment variables.
 app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
-	var search = new RegExp('{{APPLICATION_NAME}}', 'g');
+	var appName = 'APP_NAME';
+	var actKey = 'KEY';
+	var search = new RegExp('{{'+appName+'}}', 'g');
 	var json = JSON.parse(JSON.stringify(configjson)); //clone it.
-	json.arguments.execute.url = configjson.arguments.execute.url.replace(search,process.env.APPLICATION_NAME);
-	json.configurationArguments.save.url = configjson.configurationArguments.save.url.replace(search,process.env.APPLICATION_NAME);
-	json.configurationArguments.publish.url = configjson.configurationArguments.publish.url.replace(search,process.env.APPLICATION_NAME);
-	json.configurationArguments.validate.url = configjson.configurationArguments.validate.url.replace(search,process.env.APPLICATION_NAME);
-	json.edit.url = configjson.edit.url.replace(search,process.env.APPLICATION_NAME);
-	search = new RegExp('{{ACTIVITY_KEY}}', 'g');
-	json.configurationArguments.applicationExtensionKey = configjson.configurationArguments.applicationExtensionKey.replace(search,process.env.ACTIVITY_KEY);
+	json.arguments.execute.url = configjson.arguments.execute.url.replace(search,process.env[appName]);
+	json.configurationArguments.save.url = configjson.configurationArguments.save.url.replace(search,process.env[appName]);
+	json.configurationArguments.publish.url = configjson.configurationArguments.publish.url.replace(search,process.env[appName]);
+	json.configurationArguments.validate.url = configjson.configurationArguments.validate.url.replace(search,process.env[appName]);
+	json.edit.url = configjson.edit.url.replace(search,process.env[appName]);
+	search = new RegExp('{{'+actKey+'}}', 'g');
+	json.configurationArguments.applicationExtensionKey = configjson.configurationArguments.applicationExtensionKey.replace(search,process.env[actKey]);
 	res.status(200).send( json );
 });
 
