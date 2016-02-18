@@ -10,10 +10,20 @@ var routes      = require('./routes');
 var activity    = require('./routes/activity');
 var trigger     = require('./routes/trigger');
 var config      = require('./config/default');
+var parseString = require('xml2js').parseString;
+var fs = require('fs');
 
 var configjson  = require('./public/ixn/activities/hello-world/config.json');
-var indexhtml  = require('./public/ixn/activities/hello-world/index.html');
-
+var indexhtml;
+fs.readFile('./public/ixn/activities/hello-world/index.html', "utf-8", function(err, html) {
+	var configVars = ['ACTIVITY_NAME','ACTIVITY_DESCRIPTION','REQUEST_METHOD','REQUEST_URL'];
+	for (var i=0;i<configVars.length;i++) {
+		var search = new RegExp('{{'+configVars[i]+'}}', 'g');
+		html = html.replace(search,process.env[configVars[i]]);
+	}
+	indexhtml = html;	
+});	
+	
 var app = express();
 
 // Register configs for the environments where the app functions
@@ -100,13 +110,7 @@ app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
 
 //replace template values with environment variables.
 app.get( '/ixn/activities/hello-world/index.html', function( req, res ) {
-	var configVars = ['ACTIVITY_NAME','ACTIVITY_DESCRIPTION','REQUEST_METHOD','REQUEST_URL'];
-	var html = indexhtml; //clone it.
-	for (var i=0;i<configVars.length;i++) {
-		var search = new RegExp('{{'+configVars[i]+'}}', 'g');
-		html = html.replace(search,process.env[configVars[i]]);
-	}
-	res.status(200).send( html );
+	res.status(200).send( indexhtml );		
 });
 
 // Custom Hello World Trigger Route

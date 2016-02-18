@@ -17,8 +17,6 @@ var UsernameToken = ws.UsernameToken;
 
 var JWT = require('../lib/jwtDecoder');
 
-var parseString = require('xml2js').parseString;
-
 // test for heroku pipelines http-activity-dev
 exports.logExecuteData = [];
 
