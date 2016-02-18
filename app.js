@@ -12,6 +12,7 @@ var trigger     = require('./routes/trigger');
 var config      = require('./config/default');
 
 var configjson  = require('./public/ixn/activities/hello-world/config.json');
+var indexhtml  = require('./public/ixn/activities/hello-world/index.html');
 
 var app = express();
 
@@ -79,6 +80,8 @@ app.post('/ixn/activities/hello-world/execute', activity.execute );
 app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
 	var appName = 'APP_NAME';
 	var actKey = 'KEY';
+	var actName = 'ACTIVITY_NAME';
+	var actDesc = 'ACTIVITY_DESCRIPTION';
 	var search = new RegExp('{{'+appName+'}}', 'g');
 	var json = JSON.parse(JSON.stringify(configjson)); //clone it.
 	json.arguments.execute.url = configjson.arguments.execute.url.replace(search,process.env[appName]);
@@ -88,7 +91,22 @@ app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
 	json.edit.url = configjson.edit.url.replace(search,process.env[appName]);
 	search = new RegExp('{{'+actKey+'}}', 'g');
 	json.configurationArguments.applicationExtensionKey = configjson.configurationArguments.applicationExtensionKey.replace(search,process.env[actKey]);
+	search = new RegExp('{{'+actName+'}}', 'g');
+	json.lang['en-US'].name = configjson.lang['en-US'].name.replace(search,process.env[actName]);	
+	search = new RegExp('{{'+actDesc+'}}', 'g');
+	json.lang['en-US'].description = configjson.lang['en-US'].description.replace(search,process.env[actDesc]);	
 	res.status(200).send( json );
+});
+
+//replace template values with environment variables.
+app.get( '/ixn/activities/hello-world/index.html', function( req, res ) {
+	var configVars = ['ACTIVITY_NAME','ACTIVITY_DESCRIPTION','REQUEST_METHOD','REQUEST_URL'];
+	var html = indexhtml; //clone it.
+	for (var i=0;i<configVars.length;i++) {
+		var search = new RegExp('{{'+configVars[i]+'}}', 'g');
+		html = html.replace(search,process.env[configVars[i]]);
+	}
+	res.status(200).send( html );
 });
 
 // Custom Hello World Trigger Route

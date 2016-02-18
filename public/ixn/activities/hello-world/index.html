@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>HTTP Activity</title>
+    <title>{{ACTIVITY_NAME}}</title>
 	<script data-main="js/main.js" src="js/require.js"></script>
 
 	<!--Styles-->
@@ -13,9 +13,13 @@
 	<div id="step1" class="step">
 		<p><small id="version"></small></p>
 		<p/>
-		<h1>Http Request</h1>
-		<p>This Activity will make a user-defined Http Request.  Click Done to complete configuration.</p>
+		<h1>{{ACTIVITY_NAME}}</h1>
+		<p>{{ACTIVITY_DESCRIPTION}}</p>
+		<p>Method: {{REQUEST_METHOD}}</p>
+		<p>URL: {{REQUEST_URL}}</p>
+		<p>Click Done to complete configuration.</p>
 		<p/>        
 	</div>
 </body>
 </html>
+

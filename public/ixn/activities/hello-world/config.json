@@ -9,8 +9,8 @@
    "type": "REST",
    "lang": {
        "en-US": {
-           "name": "HTTP Request Activity",
-           "description": "Executes an HTTP request"
+           "name": "{{ACTIVITY_NAME}}",
+           "description": "{{ACTIVITY_DESCRIPTION}}"
        }
    },
    "arguments": {

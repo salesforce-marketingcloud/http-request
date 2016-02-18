@@ -1,12 +1,16 @@
 {
-  "name": "HTTP Request Custom Activity",
+  "name": "Salesforce JB Custom Activity",
   "description": "Create a Journey Builder Custom Activity for making an http request.",
   "repository": "https://github.com/timsim00/http-request",
   "keywords": ["journey", "builder", "marketing", "cloud", "custom", "activity", "salesforce"],
   "logo": "http://image.s6.exacttarget.com/lib/fe9112727360007b77/m/1/Salesforce_Marketing_Cloud.png",
   "env": {
-  	"REQUEST_METHOD":null,
-  	"REQUEST_URL":null,
+  	"REQUEST_METHOD":{
+  		"required":false
+  	},
+  	"REQUEST_URL":{
+  		"required":false
+  	},
   	"REQUEST_HEADERS":{
   		"required":false
   	},
@@ -19,6 +23,12 @@
   		"required":false
   	},
   	"CLIENT_SECRET":{
+  		"required":false
+  	},
+  	"ACTIVITY_NAME":{
+  		"required":false
+  	},
+  	"ACTIVITY_DESCRIPTION":{
   		"required":false
   	}
   }
