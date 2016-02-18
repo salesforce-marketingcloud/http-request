@@ -112,6 +112,10 @@ app.get( '/ixn/activities/hello-world/config.json', function( req, res ) {
 app.get( '/ixn/activities/hello-world/index.html', function( req, res ) {
 	res.status(200).send( indexhtml );		
 });
+app.get( '/ixn/activities/hello-world/', function( req, res ) {
+	res.status(200).send( indexhtml );		
+});
+
 
 // Custom Hello World Trigger Route
 app.post('/ixn/triggers/hello-world/', trigger.edit );
