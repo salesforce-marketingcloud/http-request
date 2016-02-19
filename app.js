@@ -17,6 +17,8 @@ var configjson  = require('./public/ixn/activities/hello-world/config.json');
 var indexhtml;
 fs.readFile('./public/ixn/activities/hello-world/index.html', "utf-8", function(err, html) {
 	var configVars = ['ACTIVITY_NAME','ACTIVITY_DESCRIPTION','REQUEST_METHOD','REQUEST_URL'];
+	if (!process.env.ACTIVITY_NAME) process.env.ACTIVITY_NAME = 'HTTP Request Activity';
+	if (!process.env.ACTIVITY_DESCRIPTION) process.env.ACTIVITY_DESCRIPTION = 'This Activity will make a user-defined Http Request.';
 	for (var i=0;i<configVars.length;i++) {
 		var search = new RegExp('{{'+configVars[i]+'}}', 'g');
 		html = html.replace(search,process.env[configVars[i]]);
