@@ -1,8 +1,8 @@
 {
    "workflowApiVersion": "1.0",
    "metaData": {
-       "icon": "http://image.s6.exacttarget.com/lib/fe9112727360007b77/m/1/Salesforce_Marketing_Cloud.png",
-       "iconSmall": "http://image.s6.exacttarget.com/lib/fe9112727360007b77/m/1/Salesforce_Marketing_Cloud.png",
+       "icon": "images/jb-icon.jpg",
+       "iconSmall": "images/jb-icon.jpg",
        "category": "messaging",
 	   "isConfigured":false
    },
