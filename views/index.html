@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8">
+	<title>Custom Activity</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="//www.fuelcdn.com/fuelux/3.13.0/css/fuelux.min.css" type="text/css">
+
+	<link href="dist/css/fuelux-mctheme.css" rel="stylesheet" type="text/css">
+	<style>
+		body {
+			position: relative;
+		}
+
+		.navbar .navbar-nav > li > a {
+			color: #fff;
+			padding: 15px;
+			font-size: 14px;
+		}
+
+		.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > .active > a, .navbar .navbar-nav > .active > a:hover {
+			background-color: #1f2f3f;
+			color: #fff;
+		}
+
+		.section {
+			margin-top: -40px;
+			padding-top: 60px;
+		}
+
+		.navbar {
+			background-color: #293f54;
+			font-family: "Helvetica Neue",​Helvetica,​Arial,​sans-serif;
+		}
+
+		.navbar-brand {
+			color: #fff;
+			font-size: 18px;
+			font-weight: 500;
+		}
+
+		.navbar-brand:hover {
+			color: #fff;
+		}
+
+		.fu-header {
+			font-size: 24px;
+			padding-bottom: 80px;
+			padding-top: 0px;
+			text-align: left;
+			background-color: #f0f1f2;
+			position: relative;
+			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+			margin-bottom: 40px;
+		}
+
+		.fu-header h1 {
+			color: #f59031;
+			margin-top: 0;
+			font-size: 30px;
+			line-height: 1;
+			text-align: center;
+		}
+
+		.fu-header p {
+			color: #293f54;
+			font-weight: 300;
+			line-height: 1.4;
+			margin-bottom: 0;
+			font-size: 18px;
+			text-align: center;
+
+		}
+	</style>
+	<!--CLIENT-SIDE LESS COMPILATION FOR WATCHER-LESS DEV-->
+	<!--<link href="../../less/fuelux-mctheme.less" rel="stylesheet/less" type="text/css"/>-->
+	<!--<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>-->
+	<!--<script type="text/javascript">if(window.console && window.console.clear){ window.console.clear(); }</script>-->
+
+
+	<script src="//cdn.jsdelivr.net/requirejs/2.1.11/require.js"></script>
+	<script>
+	  requirejs.config({
+		paths: {
+		  'bootstrap': '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min',
+		  'fuelux': '//www.fuelcdn.com/fuelux/3.13.0/js/fuelux.min',
+		  'jquery': '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery',
+		  // Moment.js is optional
+		  'moment': '//cdn.jsdelivr.net/momentjs/2.6.0/lang-all.min'
+		},
+		// Bootstrap is a "browser globals" script :-(
+		shim: { 'bootstrap': { deps: ['jquery'] } }
+	  });
+	  // Require all.js or include individual files as needed
+	  require(['jquery', 'bootstrap', 'fuelux'], function($){});
+	</script>
+</head>
+<body>
+	<header>
+		<img src="./images/Header.png" style="width:100%;"></img>
+	</header>
+	<div id="content" class="fu-header">
+		<div class="container">
+			<br/>
+			<h1>Journey Builder Custom Activity</h1>
+			<p id="appDesc" style="text-align:left;padding-top:30px;font-weight: bold;">Your Journey Builder Custom Activity is now deployed!</p>
+			<br/>
+			<br/>
+			<div class="container">
+				<div style="font-size:14px;" class="row">
+					<div class="col-xs-12">
+						<div style="padding-bottom:20px;">The custom activity should be available within Journey Builder. You can follow these steps to locate it.</div>
+						<ol>
+						<li>Login to your <a target="_blank" href="http://mc.exacttarget.com">Salesforce Marketing Cloud</a> account</li>
+						<li>Navigate to Journey Builder under the Marketing Automation pillar.</li>
+						<li>Click on the 'New Interaction' button or select an existing interaction.</li>
+						<li>The custom activity should be located at the bottom of the left hand panel, under the 'Custom' label.</li>
+						</ol>
+					</div>
+				</div>
+			</div>	
+			<br/>
+			<div class="container">
+				<div style="font-size:14px;" class="row">					
+					<div class="col-xs-12">
+						<div style="padding-bottom:10px;"><strong>Additional Resources</strong></div>
+						<ul>
+						<li><a target="_blank" href="http://help.exacttarget.com/en/documentation/journey_builder/getting_started_with_journey_builder">Learn more about Journey Builder</a></li>
+						<li><a target="_blank" href="https://code.exacttarget.com/app-development/journey-builder-development/extend/creating-activities.html">Extend your Custom Activity</a></li>
+						<li><a target="_blank" href="https://github.com/salesforce-marketingcloud/http-request">Check out the Github repository for the Journey Builder Custom Activity Builder</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>					
+		</div>
+	</div>
+		
+</body>
+</html>
