@@ -19,12 +19,6 @@
   	},
   	"APP_NAME":null,
   	"KEY":null,
-  	"CLIENT_ID":{
-  		"required":false
-  	},
-  	"CLIENT_SECRET":{
-  		"required":false
-  	},
   	"ACTIVITY_NAME":{
   		"required":false
   	},

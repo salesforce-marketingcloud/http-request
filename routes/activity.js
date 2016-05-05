@@ -169,6 +169,8 @@ exports.execute = function( req, res ) {
 	//console.log('oArgs',JSON.stringify(oArgs));
 	//console.log('token',req.session.token);
 	
+	var CLIENT_ID = 'myclientid';
+	var CLIENT_SECRET = 'myclientsecret';
 	var body = decodeURIComponent(process.env.REQUEST_BODY);
 	var options = {
 		url: decodeURIComponent(process.env.REQUEST_URL),
@@ -176,7 +178,7 @@ exports.execute = function( req, res ) {
 	  	method: decodeURIComponent(process.env.REQUEST_METHOD)
 	};	
 	if (body && (body !== 'undefined') && (body.trim() !== '')) options.body = body;
-	var IET_Client = new ET_Client(process.env.CLIENT_ID,process.env.CLIENT_SECRET);
+	var IET_Client = new ET_Client(CLIENT_ID,CLIENT_SECRET);
 	var mctype = isMC_API(options.url);
 	if (mctype) {
 		IET_Client.FuelAuthClient.getAccessToken(IET_Client.FuelAuthClient, function(err, body) {	
