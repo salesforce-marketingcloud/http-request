@@ -22,7 +22,7 @@
 		   "body": "",
             "format": "json",
             "timeout": 3000,
-            "useJwt": false
+            "useJwt": true
        }
    },
    "configurationArguments": {
